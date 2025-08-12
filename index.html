@@ -10,51 +10,27 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
-            background-color: #000;
+            /* Black background will create the "pillarbox" bars on the sides */
+            background-color: #000; 
         }
         #video-player {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            object-fit: cover; /* Ensures the video covers the screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* --- THIS IS THE KEY CHANGE --- */
+            object-fit: contain; /* This fits the whole video without cropping */
         }
     </style>
 </head>
 <body>
 
-    <!--
-      KEY CHANGES FOR AUTOPLAY:
-      - autoplay: Tells the browser to start playing as soon as it can.
-      - muted:   THIS IS REQUIRED for autoplay to work on mobile.
-      - playsinline: Essential for iOS to play it on the page, not in the native player.
-      - loop:    Keeps the video repeating.
-      - NO "controls" attribute is present, so the timeline is hidden.
-    -->
     <video id="video-player" autoplay muted loop playsinline>
-        <!-- Providing both formats is best for compatibility -->
         <source src="WalletDemo_Red.webm" type="video/webm">
         <source src="WalletDemo_Red.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-
-    <script>
-        // Optional: A script to try and force full-screen on load.
-        // NOTE: This is often blocked by browsers and may not work consistently.
-        // The CSS above is the more reliable way to make it *look* full-screen.
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const video = document.getElementById('video-player');
-            // This is a "best effort" attempt. If the browser blocks it,
-            // the video will still play and cover the screen due to the CSS.
-            video.play().catch(error => {
-                console.log("Autoplay was prevented:", error);
-            });
-        });
-    </script>
 
 </body>
 </html>
