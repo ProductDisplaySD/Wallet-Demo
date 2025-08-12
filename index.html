@@ -19,8 +19,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* This makes the video cover the screen without distortion */
-            display: none; /* Hidden until the user interacts */
+            object-fit: cover;
+            display: none;
         }
         #play-overlay {
             position: fixed;
@@ -41,7 +41,7 @@
 </head>
 <body>
 
-    <!-- The video element. The `src` should be the path to YOUR video. -->
+    <!-- The video element is updated for your file -->
     <video id="video-player" loop playsinline>
         <source src="WalletDemo_Red.webm" type="video/webm">
         Your browser does not support the video tag.
@@ -60,17 +60,10 @@
         const overlay = document.getElementById('play-overlay');
 
         function startExperience() {
-            // Hide the overlay
             overlay.style.display = 'none';
-
-            // Show the video
             video.style.display = 'block';
-
-            // Play the video
             video.play();
 
-            // Request full-screen
-            // This needs to handle different browser prefixes
             if (video.requestFullscreen) {
                 video.requestFullscreen();
             } else if (video.mozRequestFullScreen) { /* Firefox */
@@ -82,17 +75,12 @@
             }
         }
 
-        // Listen for a click/tap on the overlay
         overlay.addEventListener('click', startExperience);
-        
-        // As a fallback for when the user exits fullscreen, we can also bind the video itself
         video.addEventListener('click', () => {
-             // If video is paused, play it. If playing, this does nothing.
              if(video.paused) {
                  video.play();
              }
         });
-
     </script>
 
 </body>
